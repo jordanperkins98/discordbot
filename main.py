@@ -48,44 +48,6 @@ async def on_message(msg):
         await msg.channel.send(f'Title: {meme["title"]}')
         await msg.channel.send(meme["url"])
 
-    if msg.content.startswith('-dbreset'):
-        db["winCount"] = 0
-        db["target"] = 0
-        await msg.channel.send('Database reset')
-
-    if msg.content.startswith('-target'):
-        db["target"] = msg.content[7:len(msg.content)]
-        await msg.channel.send(f'Target set to {db["target"]}')
-
-    if msg.content.startswith('-streak'):
-        streak = db["winCount"]
-        target = db["target"]
-        await msg.channel.send(f'Current streak is :{streak}/{target}')
-
-    if msg.content.startswith('-WildWest'):
-        streak = db["winCount"]
-        streak += 1
-        if streak > int(db["highScore"]):
-            db["highScore"] = streak
-        db["winCount"] = streak
-        target = db["target"]
-        if streak == target:
-            await msg.channel.send(
-                f'{streak}/{target} We going straight to the Wild Wild West')
-        elif streak > int(target):
-            streak -= 1
-            await msg.channel.send(
-                f'Please increase the target with -target followed by target')
-        else:
-            await msg.channel.send(f'Current streak is: {streak}/{target}')
-
-    if msg.content.startswith('-WeSuck'):
-        db["winCount"] = 0
-        r = requests.get(
-            "https://evilinsult.com/generate_insult.php?lang=en&type=json")
-        insult = r.json()
-        await msg.channel.send(insult["insult"], tts=True)
-
     if msg.content.startswith('-randomSurvivorj'):
         survivors = [
             "Dwight", "Meg", "Claudette", "Jake", "Hag", "Bill", "David",
@@ -103,13 +65,6 @@ async def on_message(msg):
         randomSurvivor = survivors[random.randint(0, len(survivors))]
         await msg.channel.send(randomSurvivor)
 
-    if msg.content.startswith('-sethighscore'):
-        db["highScore"] = msg.content[13:len(msg.content)]
-        await msg.channel.send(f'High Score set to {db["highScore"]}')
-
-    if msg.content.startswith('-highscore'):
-        await msg.channel.send(f'Best score is: {db["highScore"]}')
-
     if msg.content.startswith('-crackflop'):
         randomFlip = random.randint(1, 2)
         if randomFlip == 1:
@@ -120,5 +75,5 @@ async def on_message(msg):
         await msg.channel.send('And the winner is: ' + randomFlip)
 
 
-keep_alive()
+
 client.run(my_secret)
