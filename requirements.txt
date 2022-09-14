@@ -34,7 +34,6 @@ grpcio==1.40.0
 h5py==2.10.0
 html5lib==1.1
 importlib-metadata==3.10.1
-any.whl
 jedi==0.15.2
 jeepney==0.7.1
 joblib==1.0.1
